@@ -17,6 +17,7 @@ export const createCategory = async (req, res) => {
   }
 };
 
+// Get all categories 
 export const getCategories = async (req, res) => {
   try {
     const categories = await Category.find({ isActive: true });
