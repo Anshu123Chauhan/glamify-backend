@@ -41,7 +41,7 @@ export const getAllCategories = async (req, res) => {
   try {
     const categories = await Category.find({ isActive: true })
       .select("_id name")
-      .sort({ createdAt: 1 }); 
+      .sort({ createdAt: 1 });
 
     return res.status(200).json({
       success: true,

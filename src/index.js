@@ -4,11 +4,10 @@ import dotenv from "dotenv";
 import connectDB from "./config/db.js"
 import categoryRoutes from "./routes/category.routes.js";
 import productRoutes from "./routes/product.routes.js";
-
+import authRoutes from "./routes/auth.routes.js";
 
 dotenv.config();
 
-// Create express app
 const app = express();
 
 // Middlewares
@@ -16,6 +15,7 @@ app.use(cors());
 app.use(express.json());
 
 // Routes
+app.use("/api/auth", authRoutes);
 app.use("/api/categories", categoryRoutes);
 app.use("/api/products", productRoutes);
 

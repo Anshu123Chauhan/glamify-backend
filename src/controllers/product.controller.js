@@ -15,7 +15,7 @@ export const createProduct = async (req, res) => {
   }
 };
 
-// Get products by category (tab click)
+// Get products by category
 export const getProductsByCategory = async (req, res) => {
   try {
     const { categoryId } = req.params;

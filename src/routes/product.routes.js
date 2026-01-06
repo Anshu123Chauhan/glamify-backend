@@ -3,10 +3,11 @@ import {
   createProduct,
   getProductsByCategory,
 } from "../controllers/product.controller.js";
+import { protect } from "../middlewares/auth.middleware.js";
 
 const router = express.Router();
 
-router.post("/", createProduct);
-router.get("/category/:categoryId", getProductsByCategory);
+router.post("/", protect, createProduct);
+router.get("/category/:categoryId", protect, getProductsByCategory);
 
 export default router;
