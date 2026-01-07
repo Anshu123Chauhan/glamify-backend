@@ -10,12 +10,22 @@ const generateToken = (userId) => {
 
 export const register = async (req, res) => {
   try {
-    const { name, email, password, role } = req.body;
+    let { firstName, lastName, email, password, role } = req.body;
 
-    if (!name || !email || !password || !role) {
+    if (!firstName || !lastName || !email || !password || !role) {
       return res.json({
         success: false,
-        message: "name , email , password and role are required",
+        message: "firstName , lastName , email , password and role are required",
+      });
+    }
+
+    email = email.toLowerCase().trim();
+
+    const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!isValidEmail.test(email)) {
+      return res.json({
+        success: false,
+        message: "Invalid email format",
       });
     }
 
@@ -37,7 +47,8 @@ export const register = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     await User.create({
-      name,
+      firstName: firstName.trim(),
+      lastName: lastName.trim(),
       email,
       password: hashedPassword,
       role,
@@ -93,7 +104,8 @@ export const login = async (req, res) => {
       token,
       user: {
         id: user._id,
-        name: user.name,
+        firstName: user.firstName,
+        lastName: user.lastName,
         email: user.email,
         role: user.role,
       },
